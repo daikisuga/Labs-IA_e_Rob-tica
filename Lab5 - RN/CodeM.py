@@ -3,14 +3,14 @@ import matplotlib.pyplot as plt
 from sklearn.neural_network import MLPRegressor
 
 print('Carregando Arquivo de teste')
-arquivo = np.load('teste2.npy')
+arquivo = np.load('teste3.npy')
 x = arquivo[0]
 y = np.ravel(arquivo[1])
 l = []
 
-iteracoes = 10
+iteracoes = 50000
 for i in range(10):
-    regr = MLPRegressor(hidden_layer_sizes=(20),
+    regr = MLPRegressor(hidden_layer_sizes=(20,20),
                         max_iter=iteracoes,
                         activation='tanh', #{'identity', 'logistic', 'tanh', 'relu'},
                         solver='adam',
@@ -19,14 +19,8 @@ for i in range(10):
     print('Treinando RNA')
     regr = regr.fit(x,y)
 
-
-
     print('Preditor')
     y_est = regr.predict(x)
-
-
-
-
 
     plt.figure(figsize=[14,7])
 
@@ -50,6 +44,10 @@ for i in range(10):
 
 print(l)
 
-print("Media = ",(sum(l))/10)
-print("Desvio Padrao = ", np.std(l))
+print("Media: ",(sum(l))/10)
+print("Desvio Padrao: ", np.std(l))
+print("Menor valor = %s na posicao %s"%(min(l),l.index(min(l))+1))
 plt.show()
+print("Media: ",(sum(l))/10)
+print("Desvio Padrao: ", np.std(l))
+print("Menor valor = %s na posicao %s"%(min(l),l.index(min(l))+1))
