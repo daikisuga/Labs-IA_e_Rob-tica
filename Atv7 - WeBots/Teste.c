@@ -5,6 +5,7 @@
  * Author:
  * Modifications:
  */
+
 /*
  * You may need to add include files like <webots/distance_sensor.h> or
  * <webots/motor.h>, etc.
@@ -86,73 +87,40 @@ int main(int argc, char **argv) {
   while (wb_robot_step(TIME_STEP) != -1) {
     for(i=0;i<256;i++) texto[i]=0;
     //memcpy(texto,0,10);
+    
     /*
      * Read the sensors :
      * Enter here functions to read sensor data, like:
      *  double val = wb_distance_sensor_get_value(my_sensor);
      */
-
+     
     /* Process sensor data here */
+    
     for(i=0;i<QtddSensoresProx;i++){
-
        LeituraSensorProx[i]= wb_distance_sensor_get_value(SensorProx[i])-60;
-
        sprintf(texto,"%s|%d: %5.2f  ",texto,i,LeituraSensorProx[i]);
-
     }
-
     printf("%s\n",texto);
-
     wb_led_set(Leds[0], wb_led_get(Leds[0])*-1);
-
+    
     /*
-
      * Enter here functions to send actuator commands, like:
-
      * wb_motor_set_position(my_actuator, 10.0);
-
      */
-
     
-
     if(LeituraSensorProx[0]>100){
-
       AceleradorDireito = -1;
-
-      AceleradorEsquerdo = 1;}
-
-    else {
-
+      AceleradorEsquerdo = 1;
+    }else {
       AceleradorDireito = 1;
-
-      AceleradorEsquerdo = 1;}
-
- 
-
-    
-
-    
-
+      AceleradorEsquerdo = 1;
+    }
     wb_motor_set_velocity(MotorEsquerdo,6.28*AceleradorEsquerdo);
-
     wb_motor_set_velocity(MotorDireito, 6.28*AceleradorDireito);
-
-
-
   };
-
-
-
   /* Enter your cleanup code here */
 
-
-
   /* This is necessary to cleanup webots resources */
-
   wb_robot_cleanup();
-
-
-
   return 0;
-
 }
